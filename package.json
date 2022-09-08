@@ -1,0 +1,89 @@
+{
+  "name": "jecyu",
+  "displayName": "编程思维培养",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.71.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:jecyu.showReminderView",
+    "*"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jecyu.showReminderView",
+        "title": "打开提醒页面",
+        "category": "jecyu"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "jecyu",
+      "properties": {
+        "jecyu.remindIntervalInMinutes": {
+          "type": "number",
+          "default": 60,
+          "description": "展示提醒页面的时间间隔（分钟）"
+        },
+        "jecyu.remindCustomContentList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "title": "提醒文章列表",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "提醒文章列表标题"
+              },
+              "detail": {
+                "type": "string",
+                "description": "提醒文章详情"
+              }
+            }
+          },
+          "default": [
+            {
+              "title": "理解系统",
+              "detail": "阅读手册，逐字逐句阅读整个手册，知道什么是正常的"
+            },
+            {
+              "title": "制造失败",
+              "detail": "从头开始，引发失败，但不要模拟失败"
+            },
+            {
+              "title": "不要想，而要看",
+              "detail": "观察失败，查看细节，不要害怕深入研究"
+            },
+            {
+              "title": "分而治之",
+              "detail": "缩小搜索范围，从有问题的支路开始查找问题"
+            }
+          ],
+          "description": "展示提醒的内容"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./src/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.71.0",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "eslint": "^8.20.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4",
+    "@vscode/test-electron": "^2.1.5"
+  }
+}
