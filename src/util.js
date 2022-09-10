@@ -8,8 +8,28 @@ function getRemindCustomContentList() {
     return getConfiguration().get('remindCustomContentList', []);
 }
 
-function getRemindIntervalInMinutes() {
-    return getConfiguration().get('remindIntervalInMinutes', 60);
+function getRemindIntervalInMinutes(type) {
+    const config =  getConfiguration();
+    switch(type) {
+        case 'juejin':
+            return config.get('codeRuleRemindIntervalInMinutes', 60);
+        case 'codeRule':
+            return config.get('juejinRemindIntervalInMinutes', 60);
+    }
+}
+
+function getRemindEnableStatus(type) {
+    const config =  getConfiguration();
+    switch(type) {
+        case 'juejin':
+            return config.get('juejinRemindEnabled', true);
+        case 'codeRule':
+            return config.get('codeRuleRemindEnabled', true);
+    }
+}
+
+function getJuejinCookie() {
+    return getConfiguration().get('juejinCookie', '');
 }
 
 function getRandomOne(contentList) {
@@ -23,8 +43,32 @@ function getContent() {
     return content;
 }
 
+const customAlphabet = (alphabet, len) => {
+    let id = "";
+    for (let i = 0; i < len; i++) {
+      id += alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
+    return id;
+  };
+const randomID = () => customAlphabet("0123456789", 19);
+
+const createNotification = (message, ...commands) => {
+    vscode.window
+        .showInformationMessage(message, ...commands.map(item => item.title))
+        .then(selection => {
+            const command = commands.find(item => item.title === selection);
+            if (command) {
+                vscode.commands.executeCommand(command.command, ...command.arguments || []);
+            }
+        }) 
+}
+
 module.exports = {
     getConfiguration,
     getRemindIntervalInMinutes,
+    getRemindEnableStatus,
     getContent,
+    getJuejinCookie,
+    randomID,
+    createNotification
 };

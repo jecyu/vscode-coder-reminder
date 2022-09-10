@@ -2,6 +2,7 @@
   "name": "jecyu",
   "displayName": "编程思维培养",
   "description": "",
+  "publisher": "jecyu",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.71.0"
@@ -11,7 +12,7 @@
   ],
   "activationEvents": [
     "onCommand:jecyu.showReminderView",
-    "*"
+    "onStartupFinished"
   ],
   "main": "./src/extension.js",
   "contributes": {
@@ -26,10 +27,29 @@
       "type": "object",
       "title": "jecyu",
       "properties": {
-        "jecyu.remindIntervalInMinutes": {
+        "jecyu.codeRuleRemindIntervalInMinutes": {
           "type": "number",
           "default": 60,
-          "description": "展示提醒页面的时间间隔（分钟）"
+          "description": "编程语录提醒的时间间隔（分钟）"
+        },
+        "jecyu.juejinRemindIntervalInMinutes": {
+          "type": "number",
+          "default": 30,
+          "description": "掘金消息提醒的时间间隔（分钟）"
+        },
+        "jecyu.codeRuleRemind.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "打开/关闭编程语录提醒"
+        },
+        "jecyu.juejinRemind.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "打开/关闭掘金消息提醒"
+        },
+        "jecyu.juejinCookie": {
+          "type": "string",
+          "description": "掘金的 cookie，用于获取消息提醒等功能"
         },
         "jecyu.remindCustomContentList": {
           "type": "array",
@@ -85,5 +105,9 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "@vscode/test-electron": "^2.1.5"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "node-cron": "^3.0.2"
   }
 }
