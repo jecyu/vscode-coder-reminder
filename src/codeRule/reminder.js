@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const { getContent } = require('./util');
+const { getContent } = require('../util');
 const ReminderView = require('./reminderView');
 const reminderView = new ReminderView();
 function Reminder() {}

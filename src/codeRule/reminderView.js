@@ -8,7 +8,7 @@ ReminderView.prototype.show = function show(content) {
     if (this.panel) {
         this.panel.webview.html = this.generateHtml(content);
     } else {
-        this.panel = vscode.window.createWebviewPanel('jecyu', '编程思想', vscode.ViewColumn.Two, {
+        this.panel = vscode.window.createWebviewPanel('coder', '编程思想', vscode.ViewColumn.Two, {
             enableScripts: true,
             retainContextWhenHidden: true,
         });

@@ -6,7 +6,7 @@ const {
 	getRemindEnableStatus
 } = require('./util');
 const { getMessageCount } = require('./services/juejin');
-const Reminder = require('./reminder');
+const Reminder = require('./codeRule/reminder');
 
 const messageType_Mapping = {
 	'1': {
@@ -36,6 +36,7 @@ const messageType_Mapping = {
 function activate(context) {
 	const juejinMessageCronExpression = `*/${getRemindIntervalInMinutes('juejin')} * * * *`;
 	const codeRuleCronExpression = `*/${getRemindIntervalInMinutes('codeRule')} * * * *`;
+
 	const codeRuleTask = cron.schedule(codeRuleCronExpression, () => {
 		Reminder.show();
 	}, {
@@ -48,7 +49,6 @@ function activate(context) {
 	const juejinMessageNotificationsTask = cron.schedule(juejinMessageCronExpression, 
 		async () => {
 			const res = await getMessageCount();
-			console.log(res)
 			if (res !== null) {
 				const { count, total } = res;
 				if (total > 0) {
@@ -76,23 +76,23 @@ function activate(context) {
 	}
 	
 	const disposable = 
-	vscode.commands.registerCommand('jecyu.showReminderView', function () {
+	vscode.commands.registerCommand('coder.showReminderView', function () {
 		Reminder.show();
 	});
 	context.subscriptions.push(disposable);
 
 
-	// vscode.workspace.onDidChangeConfiguration(ds => {
-	// 	if (ds.affectsConfiguration("jecyu")) {
-	// 	  vscode.window
-	// 		.showInformationMessage("jecyu 提醒小助手的配置需要在 VS Code 重启之后生效", "立即重启")
-	// 		.then(selection => {
-	// 		  if (selection === "立即重启") {
-	// 			vscode.commands.executeCommand("workbench.action.reloadWindow")
-	// 		  }
-	// 		})
-	// 	}
-	// })
+	vscode.workspace.onDidChangeConfiguration(ds => {
+		if (ds.affectsConfiguration("coder")) {
+		  vscode.window
+			.showInformationMessage("coder 提醒小助手的配置需要在 VS Code 重启之后生效", "立即重启")
+			.then(selection => {
+			  if (selection === "立即重启") {
+				vscode.commands.executeCommand("workbench.action.reloadWindow")
+			  }
+			})
+		}
+	})
 }
 
 function deactivate() {}

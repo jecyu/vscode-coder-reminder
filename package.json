@@ -1,57 +1,66 @@
 {
-  "name": "jecyu",
-  "displayName": "编程思维培养",
-  "description": "",
+  "name": "coder-reminder",
+  "version": "1.0.0",
+  "displayName": "程序员提示小助手",
+  "description": "编程语录与掘金消息提示",
   "publisher": "jecyu",
-  "version": "0.0.1",
+  "icon": "logo.png",
+  "keywords": [
+    "juejin",
+    "coder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jecyu/vscode-coder-reminder.git"
+  },
   "engines": {
     "vscode": "^1.71.0"
   },
   "categories": [
     "Other"
   ],
+  "main": "./src/extension.js",
   "activationEvents": [
-    "onCommand:jecyu.showReminderView",
+    "onCommand:coder.showReminderView",
     "onStartupFinished"
   ],
-  "main": "./src/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "jecyu.showReminderView",
+        "command": "coder.showReminderView",
         "title": "打开提醒页面",
-        "category": "jecyu"
+        "category": "coder"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "jecyu",
+      "title": "Coder",
       "properties": {
-        "jecyu.codeRuleRemindIntervalInMinutes": {
+        "coder.codeRuleRemindIntervalInMinutes": {
           "type": "number",
           "default": 60,
           "description": "编程语录提醒的时间间隔（分钟）"
         },
-        "jecyu.juejinRemindIntervalInMinutes": {
+        "coder.juejinRemindIntervalInMinutes": {
           "type": "number",
           "default": 30,
           "description": "掘金消息提醒的时间间隔（分钟）"
         },
-        "jecyu.codeRuleRemind.enabled": {
+        "coder.codeRuleRemind.enabled": {
           "type": "boolean",
           "default": true,
           "description": "打开/关闭编程语录提醒"
         },
-        "jecyu.juejinRemind.enabled": {
+        "coder.juejinRemind.enabled": {
           "type": "boolean",
           "default": true,
           "description": "打开/关闭掘金消息提醒"
         },
-        "jecyu.juejinCookie": {
+        "coder.juejinCookie": {
           "type": "string",
           "description": "掘金的 cookie，用于获取消息提醒等功能"
         },
-        "jecyu.remindCustomContentList": {
+        "coder.remindCustomContentList": {
           "type": "array",
           "items": {
             "type": "object",

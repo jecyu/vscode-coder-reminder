@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 
 function getConfiguration() {
-    return vscode.workspace.getConfiguration('jecyu');
+    return vscode.workspace.getConfiguration('coder');
 }
 
 function getRemindCustomContentList() {
@@ -11,9 +11,9 @@ function getRemindCustomContentList() {
 function getRemindIntervalInMinutes(type) {
     const config =  getConfiguration();
     switch(type) {
-        case 'juejin':
-            return config.get('codeRuleRemindIntervalInMinutes', 60);
         case 'codeRule':
+            return config.get('codeRuleRemindIntervalInMinutes', 60);
+        case 'juejin':
             return config.get('juejinRemindIntervalInMinutes', 60);
     }
 }
@@ -22,9 +22,9 @@ function getRemindEnableStatus(type) {
     const config =  getConfiguration();
     switch(type) {
         case 'juejin':
-            return config.get('juejinRemindEnabled', true);
+            return config.get('juejinRemind.enabled', true);
         case 'codeRule':
-            return config.get('codeRuleRemindEnabled', true);
+            return config.get('codeRuleRemind.enabled', true);
     }
 }
 

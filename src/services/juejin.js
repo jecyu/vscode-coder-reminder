@@ -26,6 +26,7 @@ async function getMessageCount() {
         });
         return extractData(data);
     }
+    return null;
 }
 
 async function getMessageList(param) {
